@@ -1,0 +1,79 @@
+java -version
+    2  yum install java-1.8*
+    3  java -version
+    4  cd /usr/lib/jvm
+    5  ls
+    6  cd java-1.8.0-openjdk-1.8.0.201.b09-0.amzn2.x86_64
+    7  ls
+    8  pwd
+    9  vi ~/.bash_profile
+   10  cd /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-0.amzn2.x86_64
+   11  ls -la
+   12  cd bin
+   13  ll
+   14  cd
+   15  source ~/.bash_pr
+   16  source ~/.bash_profile
+   17  echo $JAVA_HOME
+   18  wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+   19  rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+   20  yum install jenkins
+   21  service jenkins start
+   22  service jenkins status
+   23  netstat -tulnp
+   24  cat /var/lib/jenkins/secrets/initialAdminPassword
+[root@ip-172-31-23-32 ~]# cat ~/.bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-0.amzn2.x86_64
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+export PATH
+===========================
+https://bitbucket.org/tetranoodle/gradle_base/src/master/
+
+https://tetranoodle@bitbucket.org/tetranoodle/gradle_base.git
+
+for maven
+https://tetranoodle@bitbucket.org/tetranoodle/webapp_maven_deploy.git
+
+https://bitbucket.org/tetranoodle/webapp_maven_deploy/src/master/
+============================================================
+Artifactory
+
+Installing Artifactory OSS from an RPM disribution
+wget https://bintray.com/jfrog/artifactory-rpms/rpm -O bintray-jfrog-artifactory-rpms.repo
+sudo mv bintray-jfrog-artifactory-rpms.repo /etc/yum.repos.d/
+sudo yum install jfrog-artifactory-oss
+
+systemctl start artifactory
+=========================
+yum install tomcat-webapps tomcat-admin-webapps
+====================
+manage jenkins-->configure system> artifactory section > http://13.127.237.204:8081/artifactory
+
+
+========================================
+maven goals
+deploy:deploy-file
+-Dfile=$WORKSPACE\global_cfgplan.xml
+-DrepositoryId=artifactory-libs-release
+-Durl=http://localhost:8081/artifactory/libs-release-local
+-DgroupId=com.accaglobal.soa.configfiles.soa
+-DartifactId=GlobalSOAConfigPlan
+-Dversion=${version_number}
+--activate-profiles artifactory
+================================
+Build 
+mvn package
+----
+plugin required
+artifactory plugin
+copy artifactory
+deploy war conatainer
